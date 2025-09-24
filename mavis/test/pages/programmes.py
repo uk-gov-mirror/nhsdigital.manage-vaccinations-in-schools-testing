@@ -63,6 +63,24 @@ class ProgrammesPage:
         )
         self.search_textbox = page.get_by_role("textbox", name="Search")
         self.search_button = page.get_by_role("button", name="Search")
+        self.report_from_date_textbox = page.get_by_role(
+            "group", name="From (optional)"
+        ).get_by_label("Day")
+        self.report_from_month_textbox = page.get_by_role(
+            "group", name="From (optional)"
+        ).get_by_label("Month")
+        self.report_from_year_textbox = page.get_by_role(
+            "group", name="From (optional)"
+        ).get_by_label("Year")
+        self.report_to_date_textbox = page.get_by_role(
+            "group", name="Until (optional)"
+        ).get_by_label("Day")
+        self.report_to_month_textbox = page.get_by_role(
+            "group", name="Until (optional)"
+        ).get_by_label("Month")
+        self.report_to_year_textbox = page.get_by_role(
+            "group", name="Until (optional)"
+        ).get_by_label("Year")
 
     @step("Click on {1}")
     def click_programme_for_current_year(self, programme: Programme) -> None:
@@ -142,12 +160,27 @@ class ProgrammesPage:
     def click_report_format(self, report_format: ReportFormat) -> None:
         self.report_format_radio_buttons[report_format].click()
 
+    @step("Enter date range from {1} to {2}")
+    def enter_date_range(self, from_date: str, to_date: str) -> None:
+        self.report_from_date_textbox.fill(str(from_date[8:10]))
+        self.report_from_month_textbox.fill(str(from_date[5:7]))
+        self.report_from_year_textbox.fill(str(from_date[0:4]))
+        self.report_to_date_textbox.fill(str(to_date[8:10]))
+        self.report_to_month_textbox.fill(str(to_date[5:7]))
+        self.report_to_year_textbox.fill(str(to_date[0:4]))
+
     @step("Verify report format")
     def verify_report_format(
-        self, programme: Programme, report_format: ReportFormat
+        self,
+        programme: Programme,
+        report_format: ReportFormat,
+        from_date: str | None = None,
+        to_date: str | None = None,
     ) -> None:
         self.click_programme_for_current_year(programme)
         self.click_download_report()
+        if from_date and to_date:
+            self.enter_date_range(from_date, to_date)
         self.click_continue()
         self.click_report_format(report_format)
         self._download_and_verify_report_headers(expected_headers=report_format.headers)
