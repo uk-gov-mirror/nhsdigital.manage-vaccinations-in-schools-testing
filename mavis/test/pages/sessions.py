@@ -731,7 +731,7 @@ class SessionsPage:
             self.click_sessions()
 
     def create_invalid_session(self, location: str, programme_group: str) -> None:
-        _invalid_date = "20251332"
+        _invalid_date = "00000000"
         self.click_session_for_programme_group(location, programme_group)
         self.__schedule_session(on_date=_invalid_date, expect_error=True)
 
