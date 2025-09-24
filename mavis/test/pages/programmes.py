@@ -185,6 +185,20 @@ class ProgrammesPage:
         self.click_report_format(report_format)
         self._download_and_verify_report_headers(expected_headers=report_format.headers)
 
+    @step("Verify report does not crash on invalid date")
+    def verify_report_does_not_crash_on_invalid_date(
+        self,
+        programme: Programme,
+        from_date: str,
+        to_date: str,
+    ) -> None:
+        self.click_programme_for_current_year(programme)
+        self.click_download_report()
+        self.enter_date_range(from_date, to_date)
+        self.click_continue()
+        self.page.wait_for_load_state()
+        expect(self.page.get_by_role("heading", name="Sorry, there’s a problem with")).not_to_be_visible()
+
     def _download_and_verify_report_headers(self, expected_headers: str) -> None:
         _file_path = f"working/rpt_{get_current_datetime_compact()}.csv"
 

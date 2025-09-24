@@ -319,7 +319,7 @@ def test_verify_systmone_report_for_menacwy(setup_reports, programmes_page):
 
 @issue("MAV-553")
 @pytest.mark.reports
-def test_verify_systmone_report_does_not_crash_on_invalid_date(
+def test_verify_report_does_not_crash_on_alphanumeric_date(
     setup_reports, programmes_page
 ):
     """
@@ -330,9 +330,27 @@ def test_verify_systmone_report_does_not_crash_on_invalid_date(
     Verification:
     - Report is generated in SystmOne format for MenACWY.
     """
-    programmes_page.verify_report_format(
+    programmes_page.verify_report_does_not_crash_on_invalid_date(
         programme=Programme.MENACWY,
-        report_format=ReportFormat.SYSTMONE,
-        from_date="abcd-ef-gh",
+        from_date="yyyy-mm-dd",
         to_date="2024-01-01",
+    )
+
+@issue("MAV-590")
+@pytest.mark.reports
+def test_verify_report_does_not_crash_on_invalid_date(
+    setup_reports, programmes_page
+):
+    """
+    Test: Generate and verify SystmOne report for MenACWY programme.
+    Steps:
+    1. Navigate to reports page.
+    2. Generate SystmOne report for MenACWY with invalid from and to dates.
+    Verification:
+    - Report is generated in SystmOne format for MenACWY.
+    """
+    programmes_page.verify_report_does_not_crash_on_invalid_date(
+        programme=Programme.MENACWY,
+        from_date="0000-00-00",
+        to_date="0000-00-00",
     )
