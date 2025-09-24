@@ -336,11 +336,10 @@ def test_verify_report_does_not_crash_on_alphanumeric_date(
         to_date="2024-01-01",
     )
 
+
 @issue("MAV-590")
 @pytest.mark.reports
-def test_verify_report_does_not_crash_on_invalid_date(
-    setup_reports, programmes_page
-):
+def test_verify_report_does_not_crash_on_invalid_date(setup_reports, programmes_page):
     """
     Test: Generate and verify SystmOne report for MenACWY programme.
     Steps:

@@ -197,7 +197,9 @@ class ProgrammesPage:
         self.enter_date_range(from_date, to_date)
         self.click_continue()
         self.page.wait_for_load_state()
-        expect(self.page.get_by_role("heading", name="Sorry, there’s a problem with")).not_to_be_visible()
+        expect(
+            self.page.get_by_role("heading", name="Sorry, there’s a problem with")
+        ).not_to_be_visible()
 
     def _download_and_verify_report_headers(self, expected_headers: str) -> None:
         _file_path = f"working/rpt_{get_current_datetime_compact()}.csv"
