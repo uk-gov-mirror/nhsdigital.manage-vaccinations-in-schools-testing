@@ -64,7 +64,7 @@ def test_session_lifecycle(setup_tests, schools, dashboard_page, sessions_page):
     Steps:
     1. Navigate to sessions page.
     2. Create a new session for the school and programme.
-    3. Edit the session to set the date to today.
+    3. Edit a session to set the date to 3 days from now.
     4. Delete all sessions for the school.
     Verification:
     - Session is created, edited, and deleted without errors.
@@ -76,7 +76,7 @@ def test_session_lifecycle(setup_tests, schools, dashboard_page, sessions_page):
     sessions_page.schedule_a_valid_session()
     dashboard_page.click_mavis()
     dashboard_page.click_sessions()
-    sessions_page.edit_a_session_to_today(school, Programme.HPV)
+    sessions_page.edit_a_session_date(school, Programme.HPV, offset_days=3)
     dashboard_page.click_mavis()
     dashboard_page.click_sessions()
     sessions_page.delete_all_sessions(school)

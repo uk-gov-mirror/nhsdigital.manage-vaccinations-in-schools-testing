@@ -694,12 +694,11 @@ class SessionsPage:
         if not self.session_date_already_scheduled(date):
             self.fill_date_fields(date, edit_existing_date=True)
         self.click_continue_button()
+        self.expect_details(
+            "Session dates",
+            self.__get_display_formatted_date(date),
+        )
         self.click_save_changes()
-        expect(
-            self.page.locator("div")
-            .filter(has_text=re.compile(r"^Session datesNot provided$"))
-            .get_by_role("definition"),
-        ).not_to_be_visible()
 
     def verify_triage_updated_for_child(self) -> None:
         self.expect_alert_text("Triage outcome updated")
@@ -750,8 +749,12 @@ class SessionsPage:
         )
         self.click_save_changes()
 
-    def edit_a_session_to_today(self, location: str, programme_group: str) -> None:
-        _future_date = get_offset_date_compact_format(offset_days=0, skip_weekends=True)
+    def edit_a_session_date(
+        self, location: str, programme_group: str, offset_days: int
+    ) -> None:
+        _future_date = get_offset_date_compact_format(
+            offset_days=offset_days, skip_weekends=True
+        )
         self.click_session_for_programme_group(location, programme_group)
         self.__edit_session(date=_future_date)
 
