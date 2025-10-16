@@ -22,6 +22,7 @@ def setup_confirm_and_ignore(
     schools = schools[Programme.HPV]
     year_group = year_groups[Programme.HPV]
     children = children[Programme.HPV]
+    year_group = year_groups[Programme.HPV]
     # We need to make sure we're uploading the same class with the same NHS numbers.
     input_file_path, output_file_path = test_data.get_file_paths(
         ClassFileMapping.TWO_FIXED_CHILDREN,
@@ -40,11 +41,11 @@ def setup_confirm_and_ignore(
     try:
         dashboard_page.click_sessions()
         sessions_page.click_session_for_programme_group(schools[0], Programme.HPV)
-        sessions_page.schedule_a_valid_session()
+        sessions_page.schedule_a_valid_session(Programme.HPV, year_group)
         dashboard_page.click_mavis()
         dashboard_page.click_sessions()
         sessions_page.click_session_for_programme_group(schools[1], Programme.HPV)
-        sessions_page.schedule_a_valid_session()
+        sessions_page.schedule_a_valid_session(Programme.HPV, year_group)
         dashboard_page.click_mavis()
         dashboard_page.click_sessions()
         sessions_page.click_session_for_programme_group(schools[0], Programme.HPV)

@@ -30,7 +30,9 @@ def setup_session_with_file_upload(
             dashboard_page.click_mavis()
             dashboard_page.click_sessions()
             if schedule_session_for_today:
-                sessions_page.ensure_session_scheduled_for_today(school, Programme.FLU)
+                sessions_page.ensure_session_scheduled_for_today(
+                    school, Programme.FLU, year_group
+                )
             dashboard_page.click_mavis()
             dashboard_page.click_sessions()
             sessions_page.click_session_for_programme_group(school, Programme.FLU)
@@ -205,6 +207,7 @@ def test_accessibility(
     setup_session_with_one_child,
     dashboard_page,
     schools,
+    year_groups,
 ):
     """
     Test: Check for accessibility violations in the PSD tab.
@@ -215,12 +218,13 @@ def test_accessibility(
     - No accessibility issues are found.
     """
     school = schools[Programme.HPV][0]
+    year_group = year_groups[Programme.HPV]
 
     dashboard_page.navigate()
     dashboard_page.click_sessions()
 
     sessions_page.click_session_for_programme_group(school, Programme.FLU)
-    sessions_page.schedule_a_valid_session()
+    sessions_page.schedule_a_valid_session(Programme.FLU, year_group)
     sessions_page.click_edit_session()
     sessions_page.click_change_psd()
     accessibility_helper.check_accessibility()

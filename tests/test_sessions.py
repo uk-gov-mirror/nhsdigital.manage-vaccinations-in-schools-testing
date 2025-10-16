@@ -27,7 +27,9 @@ def setup_session_with_file_upload(
 
     def _setup(class_list_file):
         try:
-            sessions_page.ensure_session_scheduled_for_today(school, Programme.HPV)
+            sessions_page.ensure_session_scheduled_for_today(
+                school, Programme.HPV, year_group
+            )
             sessions_page.click_import_class_lists()
             import_records_page.import_class_list(class_list_file, year_group)
             dashboard_page.click_mavis()
@@ -58,7 +60,9 @@ def setup_fixed_child(setup_session_with_file_upload):
     yield from setup_session_with_file_upload(ClassFileMapping.FIXED_CHILD)
 
 
-def test_session_lifecycle(setup_tests, schools, dashboard_page, sessions_page):
+def test_session_lifecycle(
+    setup_tests, schools, dashboard_page, sessions_page, year_groups
+):
     """
     Test: Create, edit, and delete a session for a school and verify lifecycle actions.
     Steps:
@@ -70,10 +74,11 @@ def test_session_lifecycle(setup_tests, schools, dashboard_page, sessions_page):
     - Session is created, edited, and deleted without errors.
     """
     school = schools[Programme.HPV][0]
+    year_group = year_groups[Programme.HPV]
 
     sessions_page.click_session_for_programme_group(school, Programme.HPV)
-    sessions_page.schedule_a_valid_session(offset_days=14)
-    sessions_page.schedule_a_valid_session()
+    sessions_page.schedule_a_valid_session(Programme.HPV, year_group, offset_days=14)
+    sessions_page.schedule_a_valid_session(Programme.HPV, year_group)
     dashboard_page.click_mavis()
     dashboard_page.click_sessions()
     sessions_page.edit_a_session_to_today(school, Programme.HPV)
@@ -300,6 +305,7 @@ def test_verify_excel_export_and_clinic_invitation(
     dashboard_page,
     verbal_consent_page,
     children,
+    year_groups,
 ):
     """
     Test: Export session data to Excel and send clinic invitations,
@@ -314,6 +320,7 @@ def test_verify_excel_export_and_clinic_invitation(
     """
     child = children[Programme.HPV][0]
     school = schools[Programme.HPV][0]
+    year_group = year_groups[Programme.HPV]
     batch_name = add_vaccine_batch(Vaccine.GARDASIL_9)
 
     dashboard_page.click_mavis()
@@ -321,6 +328,7 @@ def test_verify_excel_export_and_clinic_invitation(
     sessions_page.ensure_session_scheduled_for_today(
         "Community clinic",
         Programme.HPV,
+        year_group,
     )
 
     dashboard_page.click_mavis()

@@ -10,12 +10,14 @@ def setup_class_list(
     schools,
     dashboard_page,
     sessions_page,
+    year_groups,
 ):
     school = schools[Programme.HPV][0]
+    year_group = year_groups[Programme.HPV]
     try:
         dashboard_page.click_sessions()
         sessions_page.click_session_for_programme_group(school, Programme.HPV)
-        sessions_page.schedule_a_valid_session()
+        sessions_page.schedule_a_valid_session(Programme.HPV, year_group)
         dashboard_page.click_mavis()
         dashboard_page.click_import_records()
         yield

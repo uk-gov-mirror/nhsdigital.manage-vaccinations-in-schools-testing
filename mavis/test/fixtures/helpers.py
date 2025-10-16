@@ -45,14 +45,18 @@ def schedule_session_and_get_consent_url(
     dashboard_page,
     log_in_page,
     sessions_page,
+    year_groups,
 ):
     def wrapper(school: School, *programmes: Programme):
         try:
+            programme_group = programmes[0].group
             log_in_page.navigate()
             log_in_page.log_in_and_choose_team_if_necessary(nurse, team)
             dashboard_page.click_sessions()
-            sessions_page.click_session_for_programme_group(school, programmes[0].group)
-            sessions_page.schedule_a_valid_session()
+            sessions_page.click_session_for_programme_group(school, programme_group)
+            sessions_page.schedule_a_valid_session(
+                programme_group, year_groups[programme_group]
+            )
             url = sessions_page.get_online_consent_url(*programmes)
             log_in_page.log_out()
             yield url

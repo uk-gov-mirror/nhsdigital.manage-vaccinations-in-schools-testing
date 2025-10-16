@@ -38,7 +38,9 @@ def setup_recording_flu(
         }
         dashboard_page.click_mavis()
         dashboard_page.click_sessions()
-        sessions_page.ensure_session_scheduled_for_today(school, Programme.FLU)
+        sessions_page.ensure_session_scheduled_for_today(
+            school, Programme.HPV, year_group
+        )
         sessions_page.click_import_class_lists()
         import_records_page.import_class_list(
             ClassFileMapping.FIXED_CHILD, year_group, Programme.FLU.group

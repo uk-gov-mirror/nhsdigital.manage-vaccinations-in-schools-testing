@@ -742,16 +742,21 @@ class SessionsPage:
         expect(self.page.get_by_text("No requests have been sent.")).to_be_visible()
 
     def expect_details(self, key: str, value: str) -> None:
+        assert value in self.get_details(key)
+
+    def get_details(self, key: str) -> str:
         detail_key = self.page.locator(
             ".nhsuk-summary-list__key",
             has_text=re.compile(f"^{key}$"),
         ).first
         detail_value = detail_key.locator("xpath=following-sibling::*[1]")
-
-        expect(detail_value).to_contain_text(value)
+        return detail_value.inner_text()
 
     def ensure_session_scheduled_for_today(
-        self, location: str, programme_group: str, *, expect_dates_check: bool = False
+        self,
+        location: str,
+        programme_group: str,
+        year_group: int,
     ) -> None:
         self.click_session_for_programme_group(location, programme_group)
         todays_date = get_todays_date().strftime("%Y%m%d")
@@ -759,21 +764,26 @@ class SessionsPage:
             self.__get_display_formatted_date(date_to_format=todays_date),
         ).is_visible():
             self.schedule_a_valid_session(
-                offset_days=0, expect_dates_check=expect_dates_check
+                programme_group,
+                year_group,
+                offset_days=0,
             )
 
     def schedule_a_valid_session(
         self,
+        programme_group: str,
+        year_group: int,
         offset_days: int = 7,
-        *,
-        expect_dates_check: bool = False,
     ) -> None:
         _future_date = get_offset_date_compact_format(
             offset_days=offset_days, skip_weekends=True
         )
+
+        has_patients = self.session_has_patients()
+
         self.__schedule_session(date=_future_date)
 
-        if expect_dates_check:
+        if self.is_catch_up(programme_group, year_group) and has_patients:
             self.click_keep_session_dates()
 
         self.expect_details(
@@ -786,13 +796,17 @@ class SessionsPage:
     def click_keep_session_dates(self) -> None:
         self.keep_session_dates_button.click()
 
-    def is_catch_up(self, programme: Programme, year_group: int) -> bool:
-        if programme is Programme.MMR:
+    def is_catch_up(self, programme_group: str, year_group: int) -> bool:
+        if programme_group == Programme.MMR.group:
             return True
-        if programme is Programme.FLU:
+        if programme_group == Programme.FLU.group:
             return False
+        if programme_group == "doubles":
+            return year_group != Programme.MENACWY.year_groups[0]
+        return year_group != Programme.HPV.year_groups[0]
 
-        return year_group != programme.year_groups[0]
+    def session_has_patients(self) -> bool:
+        return self.get_details("Cohort") != "No children"
 
     def edit_a_session_to_today(self, location: str, programme_group: str) -> None:
         _future_date = get_offset_date_compact_format(offset_days=0, skip_weekends=True)

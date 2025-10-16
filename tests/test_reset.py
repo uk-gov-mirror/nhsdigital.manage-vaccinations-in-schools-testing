@@ -21,9 +21,11 @@ def setup_all_programmes(
     import_records_page,
     sessions_page,
     children,
+    year_groups,
 ):
     school = schools["doubles"][0]
     child = children["doubles"][0]
+    year_group = year_groups["doubles"]
     try:
         batch_names = {
             Programme.HPV: add_vaccine_batch(Vaccine.GARDASIL_9),
@@ -34,7 +36,9 @@ def setup_all_programmes(
         for programme_group in [Programme.HPV, "doubles", Programme.FLU]:
             dashboard_page.click_mavis()
             dashboard_page.click_sessions()
-            sessions_page.ensure_session_scheduled_for_today(school, programme_group)
+            sessions_page.ensure_session_scheduled_for_today(
+                school, programme_group, year_group
+            )
         sessions_page.click_import_class_lists()
         import_records_page.import_class_list(
             ClassFileMapping.FIXED_CHILD,

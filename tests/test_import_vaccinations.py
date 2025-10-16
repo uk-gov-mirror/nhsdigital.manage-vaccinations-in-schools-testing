@@ -19,7 +19,9 @@ def setup_vaccs(
 
     try:
         dashboard_page.click_sessions()
-        sessions_page.ensure_session_scheduled_for_today(school, Programme.HPV)
+        sessions_page.ensure_session_scheduled_for_today(
+            school, Programme.HPV, year_group
+        )
         sessions_page.click_import_class_lists()
         import_records_page.import_class_list(ClassFileMapping.RANDOM_CHILD, year_group)
         dashboard_page.click_mavis()
@@ -51,7 +53,9 @@ def setup_vaccs_clinic(
 
     try:
         dashboard_page.click_sessions()
-        sessions_page.ensure_session_scheduled_for_today(school, Programme.HPV)
+        sessions_page.ensure_session_scheduled_for_today(
+            school, Programme.HPV, year_group
+        )
         sessions_page.click_import_class_lists()
         import_records_page.import_class_list(ClassFileMapping.RANDOM_CHILD, year_group)
         dashboard_page.click_mavis()
@@ -76,11 +80,15 @@ def setup_vaccs_systmone(
     dashboard_page,
     sessions_page,
     import_records_page,
+    year_groups,
 ):
     school = schools[Programme.HPV][0]
+    year_group = year_groups[Programme.HPV]
     try:
         dashboard_page.click_sessions()
-        sessions_page.ensure_session_scheduled_for_today(school, Programme.HPV)
+        sessions_page.ensure_session_scheduled_for_today(
+            school, Programme.HPV, year_group
+        )
         dashboard_page.click_mavis()
         dashboard_page.click_import_records()
         import_records_page.navigate_to_vaccination_records_import()
