@@ -72,6 +72,7 @@ def test_recording_hpv_vaccination_e2e(
     log_in_page,
     nurse,
     team,
+    children_page,
 ):
     """
     Test: End-to-end test for recording an HPV vaccination for a child.
@@ -118,6 +119,8 @@ def test_recording_hpv_vaccination_e2e(
     sessions_page.record_vaccination_for_child(
         VaccinationRecord(child, Programme.HPV, gardasil_9_batch_name)
     )
+    sessions_page.click_vaccination_details(schools[0])
+    children_page.expect_vaccination_details("Synced with NHS England?", "Synced")
 
     dashboard_page.navigate()
     log_in_page.log_out()
@@ -149,6 +152,7 @@ def test_recording_doubles_vaccination_e2e(
     log_in_page,
     nurse,
     team,
+    children_page,
 ):
     """
     Test: End-to-end test for recording MenACWY and Td/IPV ("doubles") vaccinations
@@ -287,6 +291,8 @@ def test_recording_flu_vaccination_e2e(
     sessions_page.record_vaccination_for_child(
         VaccinationRecord(child, Programme.FLU, fluenz_batch_name, ConsentOption.BOTH)
     )
+    sessions_page.click_vaccination_details(schools[0])
+    children_page.expect_vaccination_details("Synced with NHS England?", "Synced")
 
     # MAV-1831
     dashboard_page.navigate()

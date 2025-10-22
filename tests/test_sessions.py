@@ -346,6 +346,8 @@ def test_verify_excel_export_and_clinic_invitation(
     sessions_page.click_continue_button()
     sessions_page.click_confirm_button()
     sessions_page.expect_alert_text("Vaccination outcome recorded for HPV")
+    sessions_page.click_vaccination_details(clinics[0])
+    children_page.expect_vaccination_details("Synced with NHS England?", "Synced")
     dashboard_page.click_mavis()
     dashboard_page.click_sessions()
     sessions_page.click_session_for_programme_group(school, Programme.HPV)

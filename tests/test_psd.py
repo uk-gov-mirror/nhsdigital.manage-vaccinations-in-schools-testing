@@ -83,6 +83,7 @@ def test_delivering_vaccination_after_psd(
     healthcare_assistant,
     team,
     dashboard_page,
+    children_page,
 ):
     """
     Test: A PSD can be created for a child and the vaccination can be
@@ -134,6 +135,8 @@ def test_delivering_vaccination_after_psd(
         VaccinationRecord(child, Programme.FLU, fluenz_batch_name, ConsentOption.BOTH),
         psd_option=True,
     )
+    sessions_page.click_vaccination_details(school)
+    children_page.expect_vaccination_details("Synced with NHS England?", "Synced")
 
 
 def test_bulk_adding_psd(

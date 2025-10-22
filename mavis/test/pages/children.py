@@ -212,7 +212,9 @@ class ChildrenPage:
         detail_value = detail_key.locator("xpath=following-sibling::*[1]")
 
         self.check_vaccination_details_heading_appears()
-        expect(detail_value).to_contain_text(value)
+        reload_until_element_is_visible(
+            self.page, detail_value.get_by_text(value, exact=True)
+        )
 
     @step("Check Vaccination details heading appears")
     def check_vaccination_details_heading_appears(self) -> None:

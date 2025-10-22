@@ -60,6 +60,7 @@ def test_pre_screening_questions_prefilled_for_multiple_vaccinations(
     sessions_page,
     verbal_consent_page,
     children,
+    children_page,
 ):
     """
     Test: Verify pre-screening questions are pre-filled correctly when recording
@@ -119,3 +120,7 @@ def test_pre_screening_questions_prefilled_for_multiple_vaccinations(
                     generate_spaced_words=True,
                 ),
             )
+    sessions_page.click_vaccination_details(school)
+    children_page.expect_vaccination_details(
+        "Synced with NHS England?", "Synced"
+    )
