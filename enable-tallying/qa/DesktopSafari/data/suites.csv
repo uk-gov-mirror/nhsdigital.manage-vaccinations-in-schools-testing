@@ -1,0 +1,100 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"
+Test: Submit multiple online flu consent forms with different methods and
+   verify the correct method is displayed in the session.
+Steps:
+1. Fill in child and parent details and submit consent with the first method.
+2. Submit a second consent for the same child with the
+   second method (different parent).
+3. Navigate to the session and consent tab.
+4. Search for the child and verify the correct consent method is shown.
+5. Verify the pattern of consent details text in the offline excel.
+Verification:
+- The consent method displayed in the session matches the expected method
+  from the last consent.
+- The consent details in the excel download match the expected pattern.
+","23639","test_flu_consent_method_displayed_correctly[consents: (<ConsentOption.INJECTION: 'Injection'>, <ConsentOption.INJECTION: 'Injection'>, <ConsentOption.INJECTION: 'Injection'>)]","tests","Fri Nov 07 17:31:41 GMT 2025","passed","Fri Nov 07 17:32:04 GMT 2025","","test_online_consent_flu","",""
+"
+Test: Submit multiple online flu consent forms with different methods and
+   verify the correct method is displayed in the session.
+Steps:
+1. Fill in child and parent details and submit consent with the first method.
+2. Submit a second consent for the same child with the
+   second method (different parent).
+3. Navigate to the session and consent tab.
+4. Search for the child and verify the correct consent method is shown.
+5. Verify the pattern of consent details text in the offline excel.
+Verification:
+- The consent method displayed in the session matches the expected method
+  from the last consent.
+- The consent details in the excel download match the expected pattern.
+","33607","test_flu_consent_method_displayed_correctly[consents: (<ConsentOption.NASAL_SPRAY_OR_INJECTION: ''>, <ConsentOption.NASAL_SPRAY: 'Nasal spray'>, <ConsentOption.NASAL_SPRAY: 'Nasal spray'>)]","tests","Fri Nov 07 17:32:22 GMT 2025","passed","Fri Nov 07 17:32:56 GMT 2025","","test_online_consent_flu","",""
+"
+Test: Verify reporting values update correctly after vaccination and edit.
+Steps:
+1. Record a flu vaccination for a child and verify initial reporting values.
+2. Refresh reports and check that the cohort and vaccination percentages update.
+3. Edit the child's vaccination record to mark the outcome as refused.
+4. Refresh reports and verify that the reporting values reflect the refusal.
+Verification:
+- After vaccination, report shows 1 more vaccinated and 0 more not vaccinated.
+- After marking as refused, report shows 0 more vaccinated and
+  1 more not vaccinated.
+","146420","test_report_view","tests","Fri Nov 07 17:33:00 GMT 2025","passed","Fri Nov 07 17:35:27 GMT 2025","","test_reporting","",""
+"
+Test: Submit multiple online flu consent forms with different methods and
+   verify the correct method is displayed in the session.
+Steps:
+1. Fill in child and parent details and submit consent with the first method.
+2. Submit a second consent for the same child with the
+   second method (different parent).
+3. Navigate to the session and consent tab.
+4. Search for the child and verify the correct consent method is shown.
+5. Verify the pattern of consent details text in the offline excel.
+Verification:
+- The consent method displayed in the session matches the expected method
+  from the last consent.
+- The consent details in the excel download match the expected pattern.
+","33719","test_flu_consent_method_displayed_correctly[consents: (<ConsentOption.NASAL_SPRAY_OR_INJECTION: ''>, <ConsentOption.NASAL_SPRAY_OR_INJECTION: ''>, <ConsentOption.NASAL_SPRAY: 'Nasal spray'>)]","tests","Fri Nov 07 17:34:00 GMT 2025","passed","Fri Nov 07 17:34:34 GMT 2025","","test_online_consent_flu","",""
+"
+Test: Submit multiple online flu consent forms with different methods and
+   verify the correct method is displayed in the session.
+Steps:
+1. Fill in child and parent details and submit consent with the first method.
+2. Submit a second consent for the same child with the
+   second method (different parent).
+3. Navigate to the session and consent tab.
+4. Search for the child and verify the correct consent method is shown.
+5. Verify the pattern of consent details text in the offline excel.
+Verification:
+- The consent method displayed in the session matches the expected method
+  from the last consent.
+- The consent details in the excel download match the expected pattern.
+","34032","test_flu_consent_method_displayed_correctly[consents: (<ConsentOption.NASAL_SPRAY: 'Nasal spray'>, <ConsentOption.NASAL_SPRAY: 'Nasal spray'>, <ConsentOption.NASAL_SPRAY: 'Nasal spray'>)]","tests","Fri Nov 07 17:30:48 GMT 2025","passed","Fri Nov 07 17:31:22 GMT 2025","","test_online_consent_flu","",""
+"
+Test: Upload a vaccination records file with extra whitespace and
+   verify normalization.
+Steps:
+1. Upload a file with whitespace issues.
+2. Navigate to children page.
+3. Verify the list is normalized and imported correctly.
+Verification:
+- Imported list matches expected normalized data.
+Scenarios covered:
+TwoSpaces, Tabs, NBSP (non-breaking space), ZWJ (zero-width joiner)
+","88759","test_vaccination_file_upload_whitespace_normalization","tests","Fri Nov 07 17:30:46 GMT 2025","passed","Fri Nov 07 17:32:15 GMT 2025","","test_import_offline_vaccinations","",""
+"
+Test: Submit multiple online flu consent forms with different methods and
+   verify the correct method is displayed in the session.
+Steps:
+1. Fill in child and parent details and submit consent with the first method.
+2. Submit a second consent for the same child with the
+   second method (different parent).
+3. Navigate to the session and consent tab.
+4. Search for the child and verify the correct consent method is shown.
+5. Verify the pattern of consent details text in the offline excel.
+Verification:
+- The consent method displayed in the session matches the expected method
+  from the last consent.
+- The consent details in the excel download match the expected pattern.
+","28932","test_flu_consent_method_displayed_correctly[consents: (<ConsentOption.NASAL_SPRAY_OR_INJECTION: ''>, <ConsentOption.INJECTION: 'Injection'>, <ConsentOption.INJECTION: 'Injection'>)]","tests","Fri Nov 07 17:33:14 GMT 2025","passed","Fri Nov 07 17:33:42 GMT 2025","","test_online_consent_flu","",""
